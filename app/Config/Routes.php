@@ -1,6 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers\KaryawanController;
 
 /**
  * @var RouteCollection $routes
@@ -8,6 +9,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 $routes->resource('karyawan', ['controller' => KaryawanController::class]);
+// $routes->get('karyawan', 'KaryawanController::index');
 
 $routes->get('absensi', 'AbsensiController::index');
 
