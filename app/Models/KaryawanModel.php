@@ -9,10 +9,16 @@ class KaryawanModel extends Model
     protected $table            = 'karyawan';
     protected $primaryKey       = 'id_karyawan';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+
+    protected $allowedFields    = [
+        'nama_karyawan',
+        'alamat_karyawan',
+        'telepon_karyawan',
+        'email_karyawan'
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -20,20 +26,26 @@ class KaryawanModel extends Model
     protected array $casts = [];
     protected array $castHandlers = [];
 
-    // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules      = [
+        'nama_karyawan'    => 'required|min_length[3]',
+        'alamat_karyawan'  => 'required',
+        'telepon_karyawan' => 'required',
+        'email_karyawan'   => 'required|valid_email|is_unique[karyawan.email_karyawan,id_karyawan,{id_karyawan}]',
+    ];
+    protected $validationMessages   = [
+        'email_karyawan' => [
+            'is_unique' => 'Email ini sudah terdaftar. Silakan gunakan email lain.'
+        ]
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
-    // Callbacks
     protected $allowCallbacks = true;
     protected $beforeInsert   = [];
     protected $afterInsert    = [];
